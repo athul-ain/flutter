@@ -1102,19 +1102,13 @@ class _AppBarState extends State<AppBar> {
 
     Widget? actions;
     if (widget.actions != null && widget.actions!.isNotEmpty) {
-      actions = SafeArea(
-        left: false,
-        bottom: false,
-        top: false,
-        minimum: actionsPadding,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment:
-              theme.useMaterial3
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.stretch,
-          children: widget.actions!,
-        ),
+      actions = Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment:
+            theme.useMaterial3
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.stretch,
+        children: widget.actions!,
       );
     } else if (hasEndDrawer) {
       actions = EndDrawerButton(
@@ -1200,8 +1194,9 @@ class _AppBarState extends State<AppBar> {
     if (widget.primary) {
       appBar = SafeArea(
         bottom: false,
-        // When Actions is present, right padding is handled by Actions SafeArea.
-        right: widget.actions == null,
+        minimum: EdgeInsets.only(
+          right: widget.actionsPadding?.horizontal ?? 0.0,
+        ),
         child: appBar,
       );
     }
